@@ -237,4 +237,52 @@ with col_in3:
     """)
 
 st.markdown("---")
+# --- ML Prediction Section ---
+st.header("🔮 Predict Transaction Failure")
+st.markdown("Use our trained Random Forest algorithm to test hypothetical transaction profiles.")
+
+with st.container():
+    col_p1, col_p2, col_p3 = st.columns(3)
+    
+    with col_p1:
+        pred_hour = st.slider("Hour of Day", 0, 23, 14)
+        pred_day = st.selectbox("Day of Week", ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+    with col_p2:
+        pred_type = st.selectbox("Transaction Type", ['P2P', 'P2M', 'Recharge', 'Bill Payment'])
+        pred_amt = st.number_input("Amount (INR)", min_value=1, value=500, step=100)
+    with col_p3:
+        pred_device = st.selectbox("Device Type", ['Android', 'iOS', 'Web'])
+        pred_network = st.selectbox("Network Type", ['4G', '5G', 'WiFi', '3G'])
+
+    if st.button("Trigger Live Prediction", type="primary"):
+        try:
+            import joblib
+            rf_model = joblib.load('failure_model.pkl')
+            model_cols = joblib.load('model_columns.pkl')
+            
+            # Reconstruct the one-hot array safely
+            input_dict = {col: 0 for col in model_cols}
+            
+            # Map Continuous
+            if 'hour_of_day' in input_dict: input_dict['hour_of_day'] = pred_hour
+            if 'amount (INR)' in input_dict: input_dict['amount (INR)'] = pred_amt
+            
+            # Map Categorical
+            if f'day_of_week_{pred_day}' in input_dict: input_dict[f'day_of_week_{pred_day}'] = 1
+            if f'transaction type_{pred_type}' in input_dict: input_dict[f'transaction type_{pred_type}'] = 1
+            if f'device_type_{pred_device}' in input_dict: input_dict[f'device_type_{pred_device}'] = 1
+            if f'network_type_{pred_network}' in input_dict: input_dict[f'network_type_{pred_network}'] = 1
+            
+            input_df = pd.DataFrame([input_dict])
+            prediction = rf_model.predict(input_df)[0]
+            
+            if prediction == 1:
+                st.error("⚠️ **Failure Risk!** The model indicates high likelihood of this exact transaction failing due to network/temporal factors.")
+            else:
+                st.success("✅ **Success Likely!** This structure matches stable, successful transaction blocks.")
+                
+        except FileNotFoundError:
+            st.error("Model dependency error: Base model (.pkl) files not found on disk.")
+
+st.markdown("---")
 st.markdown("<div style='text-align: center; color: grey; padding: 10px;'>Project: UPI Transaction Trend Analysis | Developed by Sagar Patgar</div>", unsafe_allow_html=True)
