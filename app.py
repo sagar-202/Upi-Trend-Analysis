@@ -274,12 +274,17 @@ with st.container():
             if f'network_type_{pred_network}' in input_dict: input_dict[f'network_type_{pred_network}'] = 1
             
             input_df = pd.DataFrame([input_dict])
-            prediction = rf_model.predict(input_df)[0]
+            # Extract probability for Failure (class 1)
+            failure_prob = rf_model.predict_proba(input_df)[0][1] * 100
             
-            if prediction == 1:
-                st.error("⚠️ **Failure Risk!** The model indicates high likelihood of this exact transaction failing due to network/temporal factors.")
+            st.markdown(f"### Predicted Failure Probability: **{failure_prob:.2f}%**")
+            
+            if failure_prob < 3.0:
+                st.success("✅ **Low Risk** (< 3%): This transaction perfectly matches successful patterns.")
+            elif 3.0 <= failure_prob <= 6.0:
+                st.warning("⚠️ **Medium Risk** (3% - 6%): The ecosystem is showing localized stress, proceed with caution.")
             else:
-                st.success("✅ **Success Likely!** This structure matches stable, successful transaction blocks.")
+                st.error("🚨 **High Risk** (> 6%): Network metrics or schedules heavily parallel known outage vectors. Recommend queuing.")
                 
         except FileNotFoundError:
             st.error("Model dependency error: Base model (.pkl) files not found on disk.")
