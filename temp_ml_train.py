@@ -1,4 +1,5 @@
 import pandas as pd
+import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
@@ -38,3 +39,8 @@ results = pd.DataFrame({
 })
 results.to_csv('model_predictions.csv', index=False)
 print(f"Predictions stored successfully in model_predictions.csv. ({len(results)} rows)")
+
+# Saving the Random Forest Model & Columns for Deployment
+joblib.dump(rf, 'failure_model.pkl')
+joblib.dump(list(X.columns), 'model_columns.pkl')
+print("Model and columns successfully saved for deployment (failure_model.pkl, model_columns.pkl).")
