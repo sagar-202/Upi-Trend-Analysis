@@ -4,5 +4,3 @@ __pycache__/
 *.pyc
 .env
 model_predictions.csv
-failure_model.pkl
-model_columns.pkl
