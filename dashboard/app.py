@@ -30,7 +30,7 @@ st.markdown("Explore nationwide transaction data, track failures, and understand
 @st.cache_data
 def load_data():
     # Load dataset
-    file_path = 'dataset/upi_transactions_2024.csv'
+    file_path = 'data/raw/upi_transactions_2024.csv'
     try:
         df = pd.read_csv(file_path)
     except FileNotFoundError:
@@ -257,8 +257,8 @@ with st.container():
     if st.button("Trigger Live Prediction", type="primary"):
         try:
             import joblib
-            rf_model = joblib.load('failure_model.pkl')
-            model_cols = joblib.load('model_columns.pkl')
+            rf_model = joblib.load('models/failure_model.pkl')
+            model_cols = joblib.load('models/model_columns.pkl')
             
             # Reconstruct the one-hot array safely
             input_dict = {col: 0 for col in model_cols}

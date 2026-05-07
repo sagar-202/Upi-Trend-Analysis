@@ -146,8 +146,8 @@ def test_live_prediction_data_transformation(mock_joblib_load, mock_model_column
     
     # Act: Execute the logic used in app.py for data prep
     import joblib
-    rf_model = joblib.load('failure_model.pkl')
-    model_cols = joblib.load('model_columns.pkl')
+    rf_model = joblib.load('models/failure_model.pkl')
+    model_cols = joblib.load('models/model_columns.pkl')
     
     input_dict = {col: 0 for col in model_cols}
     if 'hour_of_day' in input_dict: input_dict['hour_of_day'] = pred_hour

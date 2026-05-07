@@ -69,7 +69,7 @@ The implementation of explicit feature engineering (`Is_Peak_Failure_Hour`, `Is_
    ```
 4. Execute the web application:
    ```bash
-   streamlit run app.py
+   streamlit run dashboard/app.py
    ```
 
 ## 👨‍💻 12. Author

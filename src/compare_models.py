@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import recall_score, precision_score
 
-file_path = 'dataset/upi_transactions_2024.csv'
+file_path = 'data/raw/upi_transactions_2024.csv'
 df = pd.read_csv(file_path)
 
 df['Failure'] = (df['transaction_status'].str.upper() == 'FAILED').astype(int)

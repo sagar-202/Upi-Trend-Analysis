@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-file_path = 'dataset/upi_transactions_2024.csv'
+file_path = 'data/raw/upi_transactions_2024.csv'
 df = pd.read_csv(file_path)
 
 # --- Define Features and Target ---

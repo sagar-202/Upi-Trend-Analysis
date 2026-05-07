@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.metrics import classification_report, confusion_matrix
 
-df = pd.read_csv('model_predictions.csv')
+df = pd.read_csv('reports/model_predictions.csv')
 y_true = df['Actual_Failure']
 preds = df['RF_Prediction']
 

@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 
-file_path = 'dataset/upi_transactions_2024.csv'
+file_path = 'data/raw/upi_transactions_2024.csv'
 df = pd.read_csv(file_path)
 
 df['Failure'] = (df['transaction_status'].str.upper() == 'FAILED').astype(int)
@@ -37,10 +37,10 @@ results = pd.DataFrame({
     'LR_Prediction': lr_preds,
     'RF_Prediction': rf_preds
 })
-results.to_csv('model_predictions.csv', index=False)
+results.to_csv('reports/model_predictions.csv', index=False)
 print(f"Predictions stored successfully in model_predictions.csv. ({len(results)} rows)")
 
 # Saving the Random Forest Model & Columns for Deployment
-joblib.dump(rf, 'failure_model.pkl')
-joblib.dump(list(X.columns), 'model_columns.pkl')
+joblib.dump(rf, 'models/failure_model.pkl')
+joblib.dump(list(X.columns), 'models/model_columns.pkl')
 print("Model and columns successfully saved for deployment (failure_model.pkl, model_columns.pkl).")

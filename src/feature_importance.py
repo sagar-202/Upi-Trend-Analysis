@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 from sklearn.ensemble import RandomForestClassifier
 
-file_path = 'dataset/upi_transactions_2024.csv'
+file_path = 'data/raw/upi_transactions_2024.csv'
 df = pd.read_csv(file_path)
 
 df['Failure'] = (df['transaction_status'].str.upper() == 'FAILED').astype(int)
@@ -38,7 +38,7 @@ plt.title('Top 10 Feature Importances (UPI Failures)')
 plt.grid(axis='x', linestyle='--', alpha=0.7)
 plt.tight_layout()
 
-chart_path = os.path.abspath('feature_importance.png')
+chart_path = os.path.abspath('assets/images/feature_importance.png')
 plt.savefig(chart_path)
 plt.close()
 

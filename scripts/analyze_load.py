@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-file_path = 'dataset/upi_transactions_2024.csv'
+file_path = 'data/raw/upi_transactions_2024.csv'
 df = pd.read_csv(file_path)
 
 # Extract date for averaging
@@ -52,7 +52,7 @@ plt.ylabel('Total Transactions')
 plt.xticks(range(0, 24))
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.tight_layout()
-hr_vol_path = os.path.abspath('hourly_volume.png')
+hr_vol_path = os.path.abspath('assets/images/hourly_volume.png')
 plt.savefig(hr_vol_path)
 plt.close()
 

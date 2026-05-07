@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-file_path = 'dataset/upi_transactions_2024.csv'
+file_path = 'data/raw/upi_transactions_2024.csv'
 df = pd.read_csv(file_path)
 
 df['timestamp'] = pd.to_datetime(df['timestamp'])
@@ -29,7 +29,7 @@ plt.xlabel('Date')
 plt.ylabel('Total Transactions')
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.tight_layout()
-daily_path = os.path.abspath('daily_trend.png')
+daily_path = os.path.abspath('assets/images/daily_trend.png')
 plt.savefig(daily_path)
 plt.close()
 
@@ -42,7 +42,7 @@ plt.ylabel('Total Transactions')
 plt.xticks(rotation=0)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-monthly_path = os.path.abspath('monthly_trend.png')
+monthly_path = os.path.abspath('assets/images/monthly_trend.png')
 plt.savefig(monthly_path)
 plt.close()
 

@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-file_path = 'dataset/upi_transactions_2024.csv'
+file_path = 'data/raw/upi_transactions_2024.csv'
 df = pd.read_csv(file_path)
 
 df['Failure'] = (df['transaction_status'].str.upper() == 'FAILED').astype(int)
@@ -45,7 +45,7 @@ plt.ylabel('Failure Rate (%)')
 plt.xticks(range(0, 24))
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.tight_layout()
-hr_path = os.path.abspath('failure_by_hour.png')
+hr_path = os.path.abspath('assets/images/failure_by_hour.png')
 plt.savefig(hr_path)
 plt.close()
 
@@ -58,7 +58,7 @@ plt.ylabel('Failure Rate (%)')
 plt.xticks(rotation=45)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-day_path = os.path.abspath('failure_by_day.png')
+day_path = os.path.abspath('assets/images/failure_by_day.png')
 plt.savefig(day_path)
 plt.close()
 
@@ -71,7 +71,7 @@ plt.ylabel('Failure Rate (%)')
 plt.xticks(rotation=0)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
-type_path = os.path.abspath('failure_by_type.png')
+type_path = os.path.abspath('assets/images/failure_by_type.png')
 plt.savefig(type_path)
 plt.close()
 

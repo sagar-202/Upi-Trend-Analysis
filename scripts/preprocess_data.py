@@ -1,7 +1,7 @@
 import pandas as pd
 import sys
 
-file_path = 'dataset/upi_transactions_2024.csv'
+file_path = 'data/raw/upi_transactions_2024.csv'
 df = pd.read_csv(file_path)
 
 initial_len = len(df)

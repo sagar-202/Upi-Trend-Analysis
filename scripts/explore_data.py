@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-file_path = 'dataset/upi_transactions_2024.csv'
+file_path = 'data/raw/upi_transactions_2024.csv'
 df = pd.read_csv(file_path)
 
 print("=== First 5 rows ===")

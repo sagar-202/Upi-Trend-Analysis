@@ -1,6 +1,12 @@
+# Environments
 venv/
 .venv/
+.env
+
+# Python Caches
 __pycache__/
 *.pyc
-.env
-model_predictions.csv
+
+# Local Data and Reports (preventing large files if re-generated)
+# data/raw/upi_transactions_2024.csv (Already pushed, keeping tracked)
+reports/model_predictions.csv
