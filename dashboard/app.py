@@ -3,6 +3,12 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import os
+
+# --- Path Resolution ---
+# Safely resolve the root directory no matter where the script is executed
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -29,8 +35,8 @@ st.markdown("Explore nationwide transaction data, track failures, and understand
 # --- Load and Cache Data ---
 @st.cache_data
 def load_data():
-    # Load dataset
-    file_path = 'data/raw/upi_transactions_2024.csv'
+    # Load dataset dynamically from the raw data folder
+    file_path = os.path.join(ROOT_DIR, 'data', 'raw', 'upi_transactions_2024.csv')
     try:
         df = pd.read_csv(file_path)
     except FileNotFoundError:
@@ -257,8 +263,10 @@ with st.container():
     if st.button("Trigger Live Prediction", type="primary"):
         try:
             import joblib
-            rf_model = joblib.load('models/failure_model.pkl')
-            model_cols = joblib.load('models/model_columns.pkl')
+            model_path = os.path.join(ROOT_DIR, 'models', 'failure_model.pkl')
+            cols_path = os.path.join(ROOT_DIR, 'models', 'model_columns.pkl')
+            rf_model = joblib.load(model_path)
+            model_cols = joblib.load(cols_path)
             
             # Reconstruct the one-hot array safely
             input_dict = {col: 0 for col in model_cols}
